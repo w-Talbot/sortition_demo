@@ -3,73 +3,110 @@
     'elementName' => 'dashboard'
 ])
 
-@section('content') 
-    @component('layouts.headers.auth') 
+@section('content')
+    @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
-            @slot('title') 
-                {{ __('Default') }} 
+            @slot('title')
+                {{ __('Default') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboards') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Default') }}</li>
         @endcomponent
-        @include('layouts.headers.cards') 
+        @include('layouts.headers.cards')
     @endcomponent
 
     <div class="container-fluid mt--6">
         <div class="row">
-            <div class="col-xl-8">
-                <div class="card bg-default" id="dashboard">
-                    <div class="card-header bg-transparent">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-                                <h5 class="h3 text-white mb-0">Sales value</h5>
-                            </div>
-                            <div class="col">
-                                <ul class="nav nav-pills justify-content-end">
-                                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}'
-                                        data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                                            <span class="d-none d-md-block">Month</span>
-                                            <span class="d-md-none">M</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}'
-                                        data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                                            <span class="d-none d-md-block">Week</span>
-                                            <span class="d-md-none">W</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <!-- Chart -->
-                        <div class="chart">
-                            <!-- Chart wrapper -->
-                            <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4">
+            <div class="col">
                 <div class="card">
-                    <div class="card-header bg-transparent">
+                    <div class="card-header">
                         <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                                <h5 class="h3 mb-0">Total orders</h5>
+                            <div class="col-8">
+                                <h3 class="mb-0">{{ __('Studies') }}</h3>
+                                {{--                                <p class="text-sm mb-0">--}}
+                                {{--                                    {{ __('This is an example of item management. This is a minimal setup in order to get started fast.') }}--}}
+                                {{--                                </p>--}}
                             </div>
+                            @if (auth()->user()->can('create', App\Item::class))
+                                <div class="col-4 text-right">
+                                    {{--                                   item-to-check--}}
+                                    {{--                                    <a href="{{ route('studies.create') }}" class="btn btn-sm btn-primary">{{ __('Add item') }}</a>--}}
+                                    <a href="/studies/index" class="btn btn-sm btn-primary">{{ __('See All') }}</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="card-body">
-                        <!-- Chart -->
-                        <div class="chart">
-                            <canvas id="chart-bars" class="chart-canvas"></canvas>
-                        </div>
+
+                    <div class="col-12 mt-2">
+                        @include('alerts.success')
+                        @include('alerts.errors')
+                    </div>
+
+                    <div class="table-responsive py-4" id="items-table">
+                        <table class="table align-items-center table-flush table-hover"  id="datatable-basic">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">{{ __('Logo') }}</th>
+                                <th scope="col">{{ __('Study') }}</th>
+                                <th scope="col">{{ __('Description') }}</th>
+                                @can('manage-items', App\User::class)
+                                    <th scope="col"></th>
+                                @endcan
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($studies as $study)
+
+                                <tr onclick="location.href='/studies/{{$study->id}}';">
+                                    <td>
+
+                                        @if ($study->logo)
+                                            {{--                                            <img src="asset(storage/sortition/ . $study->logo )" alt="" style="max-width: 150px;">--}}
+                                            <img src="{{ asset('sortition') }}/img/no-image.png"  alt="img not found">
+                                        @else
+                                            <img src="{{ asset('sortition') }}/img/no-image.png"  alt="img not found">
+                                        @endif
+                                    </td>
+                                    <td>{{ $study->study_name }}</td>
+                                    <td>{{ $study->study_description }}</td>
+                                    {{--                                    item-to-check--}}
+                                    {{--                                    <td>--}}
+                                    {{--                                        @foreach ($item->tags as $tag)--}}
+                                    {{--                                            <span class="badge badge-default" style="background-color:{{ $tag->color }}">{{ $tag->name }}</span>--}}
+                                    {{--                                        @endforeach--}}
+                                    {{--                                    </td>--}}
+                                    {{--                                    <td>{{ $study->created_at->format('d/m/Y H:i') }}</td>--}}
+                                    @can('manage-items', App\User::class)
+                                        <td class="text-right">
+                                            @if (auth()->user()->can('update', $study) || auth()->user()->can('delete', $study))
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        @can('update', $study)
+                                                            <a class="dropdown-item" href="/studies/{{$study->id}}/edit">{{ __('Edit') }}</a>
+                                                        @endcan
+                                                        @can('delete', $study)
+                                                            <form action="/studies/{{$study->id}}/delete" method="post">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this item?") }}') ? this.parentElement.submit() : ''">
+                                                                    {{ __('Delete') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endcan
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

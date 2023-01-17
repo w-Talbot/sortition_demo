@@ -1,5 +1,7 @@
 <?php
 
+use App\Study;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +33,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
+
+    //Sortition Specific:
+
+    //Studies:
+    Route::get('/studies/index', [\App\Http\Controllers\StudyController::class, 'index']);
+    Route::get('/studies/create', [\App\Http\Controllers\StudyController::class, 'create']);
+    Route::post('/studies', [\App\Http\Controllers\StudyController::class, 'store']);
+    Route::get('/studies/{study}/edit', [\App\Http\Controllers\StudyController::class, 'edit']);
+    Route::get('/studies/{study}', [\App\Http\Controllers\StudyController::class, 'show']);
+
+    //For testing
+    Route::get('/testing/create', function(){
+        return view('testing.create',[
+            'studies'=> Study::all()
+        ]);
+    });
+
 });
 
 

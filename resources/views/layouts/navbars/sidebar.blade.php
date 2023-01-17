@@ -36,6 +36,12 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item {{ $elementName == 'studies' ? 'active' : '' }}">
+                        <a class="nav-link" href="/studies/index">
+                            <i class="ni ni-archive-2 text-green"></i>
+                            <span class="nav-link-text">{{ __('Studies') }}</span>
+                        </a>
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                             <i class="fab fa-laravel" style="color: #f4645f;"></i>
