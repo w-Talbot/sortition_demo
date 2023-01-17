@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Study;
+use App\Randomisation;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreStudyRequest;
 use App\Http\Requests\UpdateStudyRequest;
@@ -63,7 +64,10 @@ class StudyController extends Controller
      */
     public function show(Study $study)
     {
-        return view('studies.show', ['study' => $study ]);
+
+        $randomisations = Randomisation::all()->where('study_id','=',$study->id);
+
+        return view('studies.show', ['study' => $study ,'randomisations' => $randomisations]);
     }
 
     /**

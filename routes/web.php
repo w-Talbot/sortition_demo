@@ -43,6 +43,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/studies/{study}/edit', [\App\Http\Controllers\StudyController::class, 'edit']);
     Route::get('/studies/{study}', [\App\Http\Controllers\StudyController::class, 'show']);
 
+    //Randomisations:
+    Route::get('/randomisations/{study}/{randomisation}', [\App\Http\Controllers\RandomisationController::class, 'show']);
+    Route::get('/studies/{study}/randomise',[\App\Http\Controllers\RandomisationController::class,'create']);
+    Route::post('/randomisations/{study}', [\App\Http\Controllers\RandomisationController::class, 'store']);
+
+
     //For testing
     Route::get('/testing/create', function(){
         return view('testing.create',[

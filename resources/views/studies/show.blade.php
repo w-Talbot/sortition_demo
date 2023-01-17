@@ -79,10 +79,21 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Randomisations</h3>
+                            <div class="row">
+                            <div class="col-8">
+                              <h3 class="mb-0">Randomisations</h3>
+                            </div>
+                            @if (auth()->user()->can('create', App\Item::class))
+                                <div class="col-4 text-right">
+                                    {{--                                   item-to-check--}}
+                                    {{--                                    <a href="{{ route('studies.create') }}" class="btn btn-sm btn-primary">{{ __('Add item') }}</a>--}}
+                                    <a href="/studies/{{$study->id}}/randomise" class="btn btn-sm btn-primary">{{ __('Randomise Participant') }}</a>
+                                </div>
+                            @endif
+                            </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
+                            <table class="table align-items-center table-flush table-hover">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Subject ID</th>
@@ -95,49 +106,17 @@
                                 </thead>
                                 <tbody class="list">
 {{--                                item-to-check : need to loop through and display all randomised subjects--}}
-                               <tr scope="row">
-                                   <td> S001 </td>
-                                   <td> Delayed Vaccination and Standard Information </td>
-                                   <td> superuser </td>
-                                   <td> Fri 29 Jan 2021 </td>
-                                   <td> 14:45 </td>
-                               </tr>
-                               <tr scope="row">
-                                   <td> S002 </td>
-                                   <td> Delayed Vaccination and Standard Information </td>
-                                   <td> superuser </td>
-                                   <td> Fri 29 Jan 2021 </td>
-                                   <td> 14:45 </td>
-                               </tr>
-                               <tr scope="row">
-                                   <td> S003 </td>
-                                   <td> Delayed Vaccination and Standard Information </td>
-                                   <td> superuser </td>
-                                   <td> Fri 29 Jan 2021 </td>
-                                   <td> 14:45 </td>
-                               </tr>
-                               <tr scope="row">
-                                   <td> S004 </td>
-                                   <td> Delayed Vaccination and Standard Information </td>
-                                   <td> superuser </td>
-                                   <td> Fri 29 Jan 2021 </td>
-                                   <td> 14:45 </td>
-                               </tr>
-                               <tr scope="row">
-                                   <td> S005 </td>
-                                   <td> Delayed Vaccination and Standard Information </td>
-                                   <td> superuser </td>
-                                   <td> Fri 29 Jan 2021 </td>
-                                   <td> 14:45 </td>
-                               </tr>
-                               <tr scope="row">
-                                   <td> S006 </td>
-                                   <td> Delayed Vaccination and Standard Information </td>
-                                   <td> superuser </td>
-                                   <td> Fri 29 Jan 2021 </td>
-                                   <td> 14:45 </td>
-                               </tr>
+{{--                               <tr scope="row" onclick="location.href='/studies/{{$study->id}}/{{$randomisations->id}}/forms';">--}}
+                               @foreach($randomisations as $randomisation)
 
+                                <tr scope="row" onclick="location.href='/randomisations/{{$study->id}}/{{$randomisation->id}}';">
+                                   <td> {{$randomisation->participant_id}} </td>
+                                   <td> {{$randomisation->allocation}} </td>
+                                   <td> {{$randomisation->randomised_by}} </td>
+                                   <td> {{$randomisation->randomisation_date}} </td>
+                                   <td> 14:45 </td>
+                               </tr>
+                               @endforeach
                                 </tbody>
                             </table>
                         </div>
