@@ -19,14 +19,39 @@
         @endcomponent
     @endcomponent
 
+    <div class="col-xl-12 order-xl-1">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">{{ __('Randomise Details: ') }}</h3>
+                    </div>
+                    <div class="col-4 text-right">
+                        <a href="/studies/{{$study->id}}" class="btn btn-sm btn-primary">{{ __('Back to Study') }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+               <div class="row">
+                   <div>
+{{--                       item-to-check : this will need to pull a real study loigo / hardcoded for now:--}}
+{{--                       {{$study->logo}}--}}
+                       <img src="{{ asset('sortition') }}/img/no-image.png"  alt="img not found">
+                   </div>
+                   <div>
+                       <h1>
+                           {{$study->study_name}}
+                       </h1>
+                   </div>
+               </div>
+                <h3>Participant ID: {{$randomisation->participant_id}}</h3>
+                <h3>Participant Allocation: {{$randomisation->allocation}}</h3>
+                <h3>Randomised by: {{$randomisation->randomised_by}}</h3>
+                <h3>Randomised on: {{$randomisation->randomisation_date}}</h3>
+            </div>
+        </div>
+    </div>
 
-<h3>
-    {{$study->study_name}}
-</h3>
-    <h3>{{$randomisation->participant_id}}</h3>
-    <h3>{{$randomisation->allocation}}</h3>
-    <h3>{{$randomisation->randomised_by}}</h3>
-    <h3>{{$randomisation->randomisation_date}}</h3>
 
 @endsection
 

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Site extends Model
 {
     use HasFactory;
-    protected $fillable = ['site_name'];
+    protected $fillable = ['study_id','site_name', 'site_value'];
 }

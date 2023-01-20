@@ -41,7 +41,7 @@ class StudyController extends Controller
     public function store(StoreStudyRequest $request)
 //    public function store(Request $request)
     {
-//        dd($request);
+        dd($request);
         $formFields = $request->validate([
             'study_name' => 'required',
             'study_description' => 'required'
