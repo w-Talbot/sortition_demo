@@ -144,41 +144,15 @@
                             </thead>
                             <tbody class="list">
                             {{--                                item-to-check : need to loop through and display all randomised subjects--}}
+                            @foreach($sites as $site)
                             <tr scope="row">
-                                <td> S001 </td>
-                                <td> Sacred Heart Hospital </td>
+                                <td> {{$site->site_value}} </td>
+                                <td> {{$site->site_name}} </td>
                                 <td> 12 </td>
                                 <td> Fri 29 Jan 2021 </td>
                                 <td> 500 </td>
                             </tr>
-                            <tr scope="row">
-                                <td> S002 </td>
-                                <td> John Radcliffe </td>
-                                <td> 2 </td>
-                                <td> Fri 29 Jan 2021 </td>
-                                <td> 500 </td>
-                            </tr>
-                            <tr scope="row">
-                                <td> S003 </td>
-                                <td> GReys anatomy </td>
-                                <td> 54 </td>
-                                <td> Fri 29 Jan 2021 </td>
-                                <td> 500 </td>
-                            </tr>
-                            <tr scope="row">
-                                <td> S004 </td>
-                                <td> hospital </td>
-                                <td> 5 </td>
-                                <td> Fri 29 Jan 2021 </td>
-                                <td> 500 </td>
-                            </tr>
-                            <tr scope="row">
-                                <td> S005 </td>
-                                <td> Boston Hospital </td>
-                                <td> 67 </td>
-                                <td> Fri 29 Jan 2021 </td>
-                                <td> 500 </td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

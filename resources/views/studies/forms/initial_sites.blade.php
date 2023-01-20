@@ -54,7 +54,7 @@
 
 </div>
 
-{{--item-to-check : perhaps add a function to store/display only consecutive numbers if possible--}}
+{{--item-to-check : perhaps add a function to store/display only consecutive numbers if possible this will break otherwise--}}
 @push('js')
     <script type="text/javascript">
         var sfx = 0;

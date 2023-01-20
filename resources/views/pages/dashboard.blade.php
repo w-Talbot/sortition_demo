@@ -23,7 +23,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Studies') }}</h3>
+                                <h3 class="mb-0">{{ __('Your Studies') }}</h3>
                                 {{--                                <p class="text-sm mb-0">--}}
                                 {{--                                    {{ __('This is an example of item management. This is a minimal setup in order to get started fast.') }}--}}
                                 {{--                                </p>--}}
