@@ -1,14 +1,15 @@
 @extends('layouts.app', [
     'title' => __('User Management'),
     'parentSection' => 'laravel',
+    'navClass' => 'navbar bg-default',
     'elementName' => 'user-management'
 ])
 
 @section('content')
-    @component('layouts.headers.auth')
+    @component('studies.headers.default')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Examples') }}
+                {{ __('Users') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('user.index') }}">{{ __('User Management') }}</a></li>
@@ -24,9 +25,9 @@
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <h3 class="mb-0">{{ __('Users') }}</h3>
-                                <p class="text-sm mb-0">
-                                        {{ __('This is an example of user management. This is a minimal setup in order to get started fast.') }}
-                                    </p>
+{{--                                <p class="text-sm mb-0">--}}
+{{--                                        {{ __('This is an example of user management. This is a minimal setup in order to get started fast.') }}--}}
+{{--                                    </p>--}}
                             </div>
                             @can('create', App\User::class)
                                 <div class="col-4 text-right">
@@ -45,11 +46,10 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Photo</th>
                                     <th scope="col">{{ __('Name') }}</th>
                                     <th scope="col">{{ __('Email') }}</th>
                                     <th scope="col">{{ __('Role') }}</th>
-                                    <th scope="col">{{ __('Creation Date') }}</th>
+                                    <th scope="col">{{ __('Studies') }}</th>
                                     @can('manage-users', App\User::class)
                                         <th scope="col"></th>
                                     @endcan
@@ -58,17 +58,19 @@
                             <tbody>
                                 @foreach ($users as $user)
                                     <tr>
-                                        <td>
-                                            <span class="avatar avatar-sm rounded-circle">
-                                                <img src="{{ $user->profilePicture() }}" alt="" style="max-width: 100px; border-radiu: 25px">
-                                            </span>
-                                        </td>
+{{--                                        <td>--}}
+{{--                                            <span class="avatar avatar-sm rounded-circle">--}}
+{{--                                                <img src="{{ $user->profilePicture() }}" alt="" style="max-width: 100px; border-radiu: 25px">--}}
+{{--                                            </span>--}}
+{{--                                        </td>--}}
                                         <td>{{ $user->name }}</td>
                                         <td>
                                             <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                         </td>
                                         <td>{{ $user->role->name }}</td>
-                                        <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
+                                        <td>
+                                            <input type="text" class="form-control" value="DIAMOND, ARCHIE, ATOMIC, OPTIMISE" data-toggle="tags" />
+                                        </td>
 					                    @can('manage-users', App\User::class)
 					                        <td class="text-right">
                                                 @if ($user->id != 1 && auth()->user()->can('update', $user) || auth()->user()->can('delete', $user))
@@ -119,6 +121,8 @@
 @endpush
 
 @push('js')
+
+
     <script src="{{ asset('argon') }}/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -127,4 +131,6 @@
     <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="/argon/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
 @endpush

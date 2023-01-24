@@ -2,11 +2,12 @@
 @extends('layouts.app', [
     'title' => __('Study Management'),
     'parentSection' => 'laravel',
+    'navClass' => 'navbar bg-default',
     'elementName' => 'study-management'
 ])
 
 @section('content')
-    @component('layouts.headers.auth')
+    @component('studies.headers.default')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
                 {{ __('Studies') }}
@@ -53,6 +54,7 @@
                             <tr>
                                 <th scope="col">{{ __('Logo') }}</th>
                                 <th scope="col">{{ __('Study') }}</th>
+                                <th scope="col">{{ __('Type') }}</th>
                                 <th scope="col">{{ __('Description') }}</th>
                                 @can('manage-items', App\User::class)
                                     <th scope="col"></th>
@@ -62,7 +64,13 @@
                             <tbody>
                             @foreach ($studies as $study)
 
-                                <tr onclick="location.href='/studies/{{$study->id}}';">
+                                @if($study->study_type == 'demo')
+                                    <tr class="bg-success" onclick="location.href='/studies/{{$study->id}}';">
+                                @endif
+                                @if($study->study_type == 'live')
+                                    <tr class="bg-warning" onclick="location.href='/studies/{{$study->id}}';">
+                                @endif
+
                                     <td>
 
                                         @if ($study->logo)
@@ -73,6 +81,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $study->study_name }}</td>
+                                    <td>{{ $study->study_type }}</td>
                                     <td>{{ $study->study_description }}</td>
 {{--                                    item-to-check--}}
 {{--                                    <td>--}}

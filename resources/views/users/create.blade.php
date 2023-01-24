@@ -1,11 +1,12 @@
 @extends('layouts.app', [
     'title' => __('User Management'),
     'parentSection' => 'laravel',
+    'navClass' => 'navbar bg-default',
     'elementName' => 'user-management'
 ])
 
 @section('content')
-    @component('layouts.headers.auth')
+    @component('studies.headers.default')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
                 {{ __('Examples') }}

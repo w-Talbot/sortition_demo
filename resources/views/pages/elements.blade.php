@@ -3,16 +3,16 @@
     'elementName' => 'elements'
 ])
 
-@section('content') 
-    @component('layouts.headers.auth') 
+@section('content')
+    @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
-            @slot('title') 
-                {{ __('Elements') }} 
+            @slot('title')
+                {{ __('Elements') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('page.index', 'elements') }}">{{ __('Forms') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Elements') }}</li>
-        @endcomponent 
+        @endcomponent
     @endcomponent
 
     <div class="container-fluid mt--6">

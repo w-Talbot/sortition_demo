@@ -1,14 +1,15 @@
 @extends('layouts.app', [
     'title' => __('Role Management'),
     'parentSection' => 'laravel',
+    'navClass' => 'navbar bg-default',
     'elementName' => 'role-management'
 ])
 
 @section('content')
-    @component('layouts.headers.auth')
+    @component('studies.headers.default')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Examples') }}
+                {{ __('Manage') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('role.index') }}">{{ __('Role Management') }}</a></li>
@@ -24,10 +25,11 @@
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <h3 class="mb-0">{{ __('Roles') }}</h3>
-                                <p class="text-sm mb-0">
-                                    {{ __('This is an example of role management. This is a minimal setup in order to get started fast.') }}
-                                </p>
+{{--                                <p class="text-sm mb-0">--}}
+{{--                                    {{ __('This is an example of role management. This is a minimal setup in order to get started fast.') }}--}}
+{{--                                </p>--}}
                             </div>
+
                         </div>
                     </div>
 

@@ -1,20 +1,44 @@
 @extends('layouts.app', [
+    'navClass' => 'navbar-light bg-secondary',
+    'searchClass' => 'navbar-search-dark',
     'parentSection' => 'dashboards',
-    'elementName' => 'dashboard'
+    'elementName' => 'dashboard-alternative'
 ])
 
 @section('content')
-    @component('layouts.headers.auth')
-        @component('layouts.headers.breadcrumbs')
-            @slot('title')
-                {{ __('Default') }}
-            @endslot
+    <div class="header pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 d-inline-block mb-0">Home</h6>
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                            <ol class="breadcrumb breadcrumb-links">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('page.index', 'dashboard-alternative') }}">Dashboards</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Home</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboards') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ __('Default') }}</li>
-        @endcomponent
-        @include('layouts.headers.cards')
-    @endcomponent
+
+
+
+{{--    @component('layouts.headers.auth')--}}
+{{--        @component('layouts.headers.breadcrumbs')--}}
+{{--            @slot('title')--}}
+{{--                {{ __('Default') }}--}}
+{{--            @endslot--}}
+
+{{--            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboards') }}</a></li>--}}
+{{--            <li class="breadcrumb-item active" aria-current="page">{{ __('Default') }}</li>--}}
+{{--        @endcomponent--}}
+{{--        @include('layouts.headers.cards')--}}
+{{--    @endcomponent--}}
 
     <div class="container-fluid mt--6">
         <div class="row">
@@ -49,6 +73,7 @@
                             <tr>
                                 <th scope="col">{{ __('Logo') }}</th>
                                 <th scope="col">{{ __('Study') }}</th>
+                                <th scope="col">{{ __('Type') }}</th>
                                 <th scope="col">{{ __('Description') }}</th>
                                 <th scope="col">{{ __('Progress') }}</th>
                                 @can('manage-items', App\User::class)
@@ -70,6 +95,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $study->study_name }}</td>
+                                    <td>{{ $study->study_type }}</td>
                                     <td>{{ $study->study_description }}</td>
                                     <td>
                                             <div class="progress progress-xs mb-0">

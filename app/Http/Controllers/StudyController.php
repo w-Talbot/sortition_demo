@@ -45,14 +45,28 @@ class StudyController extends Controller
     {
 //        dd($request);
 
+//        item-to-check : how best to include "groups" of things? Ex: multiple initial sites/ allocation groups / selection options
         //Study Info:
         $formFields = $request->validate([
             'study_name' => 'required',
-            'study_description' => 'required'
+            'study_type' => 'required',
+            'study_description' => 'required',
+            'study_monitor' => 'required',
+            'algorithm_type' => 'required',
+            'algorithm_masking' => 'required',
+            'algorithm_rng' => 'required',
+            'field_warning' => 'required',
+            'inclusion_warning' => 'required',
+            'exclusion_warning' => 'required',
+            'allocation_message' => 'required'
         ]);
 
         //item-to-check : this is for initial testing need to add real logo path
         $formFields['logo'] = $request['logo'];
+        $formFields['allocation_groups'] = '[["allocation_group_name" => "Test Group A", "allocation_group_ratio" => "50"],[]]';
+        $formFields['selection_options'] = '';
+        $formFields['initial_sites'] = '';
+        $formFields['item_groups'] = '';
 
         Study::create($formFields);
 

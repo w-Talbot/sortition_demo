@@ -1,14 +1,26 @@
 @extends('layouts.app', [
     'parentSection' => 'study',
+    'navClass' => 'navbar bg-default',
     'elementName' => 'study_dashboard'
 ])
 
 @section('content')
-    @component('layouts.headers.auth')
-        @component('layouts.headers.breadcrumbs')
-            @slot('title')
-                {{ __($study->study_name . ' Dashboard') }}
-            @endslot
+    @if($study->study_type == 'live')
+        @component('studies.headers.live')
+            @component('layouts.headers.breadcrumbs')
+                @slot('title')
+                    {{ __($study->study_name . ' - LIVE Dashboard') }}
+                @endslot
+    @endif
+    @if($study->study_type == 'demo')
+
+        @component('studies.headers.demo')
+            @component('layouts.headers.breadcrumbs')
+                @slot('title')
+                    {{ __($study->study_name . ' - DEMO Dashboard') }}
+                @endslot
+    @endif
+
 
             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboards') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __($study->study_name) }}</li>
